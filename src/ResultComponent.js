@@ -4,7 +4,13 @@ import "./styles.css";
 export default function ResultComponent(props) {
   return (
     <div>
-      <input className="result" type="text" value={props.result} disabled />
+      <input
+        className="result"
+        type="text"
+        id="result"
+        value={props.result}
+        disabled
+      />
     </div>
   );
 }

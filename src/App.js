@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./styles.css";
 import KeypadComponent from "./KeypadComponent.js";
 import ResultComponent from "./ResultComponent.js";
+import HistoryComponent from "./HistoryComponent.js";
 
 export default function App() {
   const [result, setResult] = useState("");
-
+  var checkResult = "";
   function clr() {
     setResult("");
   }
@@ -44,7 +45,6 @@ export default function App() {
         );
       }
 
-      var checkResult = "";
       if (result.includes("--")) {
         checkResult = result.replace("--", "+");
       } else {
@@ -70,7 +70,7 @@ export default function App() {
           throw "SyntaxError: CannotDivideBy0";
         }
         setResult(eval(checkResult));
-        addHistory(result, eval(checkResult));
+        addHistory(checkResult, eval(checkResult));
       } catch (e) {
         if (e === "SyntaxError: CannotDivideBy0") {
           setResult("error");
@@ -111,40 +111,58 @@ export default function App() {
 
   function addHistory(equ, ans) {
     const div = document.createElement("div");
+
     const button1 = document.createElement("button");
+    const equalSign = document.createElement("input");
     const button2 = document.createElement("button");
+
     const equText = document.createTextNode(equ);
     const ansText = document.createTextNode(ans);
+
     const img = document.createElement("img");
-    const his = document.getElementById("his");
+    const historyBox = document.getElementById("historyBox");
 
     button1.setAttribute("class", "historyElement");
     button1.setAttribute("id", " ");
+    button1.setAttribute("value", equ);
     button2.setAttribute("class", "historyElement");
     button2.setAttribute("id", " ");
+    button2.setAttribute("value", ans);
+    equalSign.setAttribute("type", "text");
+    equalSign.setAttribute("value", "=");
+    equalSign.setAttribute("disabled", "true");
+    equalSign.setAttribute("class", "equals");
 
-    /*img.setAttribute("class", "trashIcon");
+    img.setAttribute("class", "trashIcon");
     img.setAttribute(
       "src",
       "https://img.icons8.com/ultraviolet/40/000000/xbox-x.png"
-    );*/
+    );
 
     button1.appendChild(equText);
     button2.appendChild(ansText);
-    //button1.appendChild(img);
     div.appendChild(button1);
+    div.appendChild(equalSign);
     div.appendChild(button2);
-    his.appendChild(div);
+    div.appendChild(img);
+    historyBox.appendChild(div);
 
     button1.addEventListener("click", () => {
-      try {
-        button1.setAttribute("id", "btnClicked");
-      } catch (TypeError) {}
+      setResult(document.getElementById("result").value + equ);
     });
-
+    button2.addEventListener("click", () => {
+      setResult(document.getElementById("result").value + ans);
+    });
     img.addEventListener("click", () => {
       div.remove();
     });
+  }
+
+  function deleteAllHistory() {
+    var historyBox = document.getElementById("historyBox");
+    while (historyBox.firstChild) {
+      historyBox.removeChild(historyBox.firstChild);
+    }
   }
 
   return (
@@ -154,10 +172,8 @@ export default function App() {
         <KeypadComponent onClick={onClick} />
       </div>
 
-      <div>
-        <fieldset className="calculator-history" id="his">
-          <h2>History</h2>
-        </fieldset>
+      <div className="calculator-history">
+        <HistoryComponent deleteAllHistory={deleteAllHistory} />
       </div>
     </div>
   );
