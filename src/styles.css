@@ -11,7 +11,7 @@
   background-color: rgb(174, 215, 243);
   width: fit-content;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .calculator-history {
@@ -50,7 +50,7 @@
   border: none;
   background: transparent;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
@@ -62,6 +62,7 @@
   border: none;
   background: transparent;
   width: 8px;
+  font-size: 18px;
 }
 
 fieldset {
@@ -73,11 +74,11 @@ fieldset {
 .clear {
   margin-left: 30px;
   background-color: rgb(179, 179, 179);
-  border: solid black 2px;
+  border: solid black 1.5px;
   border-radius: 5px;
-  width: 120px;
-  height: 25px;
-  font-size: medium;
+  width: 130px;
+  height: 35px;
+  font-size: 20px;
   margin-bottom: 15px;
 }
 
@@ -86,13 +87,13 @@ fieldset {
 }
 
 .historyLabel {
-  font-size: 28px;
+  font-size: 38px;
 }
 
 .trashIcon {
   border: none;
   border-radius: 12px;
-  width: 20px;
+  width: 24px;
   margin-bottom: -4px;
   margin-left: 10px;
 }
